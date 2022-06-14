@@ -43,6 +43,7 @@ var headerFields = []string{
 	"default-relationship-id",
 	"idmapping",
 	"remark",
+	"ontology",
 }
 
 var termFields = []string{
@@ -65,6 +66,8 @@ var termFields = []string{
 	"is_obsolete",
 	"replaced_by",
 	"consider",
+	"created_by",
+	"creation_date",
 }
 
 var typedefFields = []string{
@@ -93,6 +96,8 @@ var typedefFields = []string{
 	"is_obsolete",
 	"replaced_by",
 	"consider",
+	"created_by",
+	"creation_date",
 }
 
 var instanceFields = []string{
@@ -139,6 +144,10 @@ type OBO struct {
 	headerFields []string
 	headerMap    map[string][]string
 	Stanzas      []*Stanza
+}
+
+func (o OBO) HeaderMap() map[string][]string {
+	return o.headerMap
 }
 
 func (o *OBO) HeaderValue(field string) string {

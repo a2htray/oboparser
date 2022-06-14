@@ -9,8 +9,6 @@ import (
 	"regexp"
 )
 
-
-
 type parseError struct {
 	lineNum int
 	err     error
@@ -33,7 +31,7 @@ type parser struct {
 	lineNum int
 	numRead int
 	obo     *OBO
-	config *ParserConfig
+	config  *ParserConfig
 }
 
 func New(rd io.Reader, config *ParserConfig) *parser {
@@ -49,7 +47,7 @@ func (p *parser) Execute() *OBO {
 	var stanza *Stanza
 	line := make([]byte, 0)
 	var prevStanzaType StanzaType
-	
+
 	reader := bufio.NewReader(p.rd)
 	for {
 		bs, isPrefix, err := reader.ReadLine()
@@ -144,7 +142,7 @@ func (p *parser) Execute() *OBO {
 func fieldValue(line []byte, lineNum int) (field, value []byte, er error) {
 	idx := bytes.IndexByte(line, ':')
 	if idx == -1 {
-		return nil,nil, &parseError{lineNum: lineNum, err: errors.New("should contains a colon symbol")}
+		return nil, nil, &parseError{lineNum: lineNum, err: errors.New("should contains a colon symbol")}
 	}
 	return bytes.Trim(line[:idx], " "), bytes.Trim(line[idx+1:], " "), nil
 }
